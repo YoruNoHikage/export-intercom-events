@@ -117,8 +117,9 @@ fs.readdir('./events', (err, files) => {
 
   const eventsCache = {};
   (files || []).forEach(filename => {
-    const id = filename.match(/(\w+).json/)[1];
-    if (id) {
+    const match = filename.match(/(\w+).json/);
+    if (match && match[1]) {
+      const id = match[1];
       eventsCache[id] = JSON.parse(fs.readFileSync('./events/' + filename));
     }
   });
