@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "6"
+script:
+  - node index.js
+  - FILENAME=$(echo "*.csv")
+  - curl https://slack.com/api/files.upload
+      -F file=@$(echo $FILENAME)
+      --form-string channels=$SLACK_CHANNELS
+      -F token=$SLACK_TOKEN
+      -F filetype=csv
+      -F filename=$(echo $FILENAME) > /dev/null
