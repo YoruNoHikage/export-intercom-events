@@ -126,7 +126,7 @@ fs.readdir('./events', (err, files) => {
 
   intercom.users.scroll.each({}, function(res) {
     const promises = res.body.users
-      .filter(user => user.custom_attributes.stripe_plan)
+      .filter(user => user.custom_attributes.stripe_last_charge_amount > 0 && user.custom_attributes.export_credits === undefined)
       .map(user => {
         const addEvents = events => {
           user.events = events.reduce(
